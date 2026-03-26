@@ -1,0 +1,43 @@
+<div class="sidebar" [class.open]="isOpen">
+  <h2 class="logo">CCTV<br />Management</h2>
+
+  <ul class="menu">
+    <!-- ADMIN -->
+    <li *ngIf="role === 'Admin'">
+      <a
+        routerLink="/dashboard/admin"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span class="icon">📊</span>
+        Admin Dashboard
+      </a>
+    </li>
+
+    <!-- OPERATOR -->
+    <li *ngIf="role === 'Admin' || role === 'Operator'">
+      <a routerLink="/dashboard/operator" routerLinkActive="active">
+        <span class="icon">👨‍💼</span>
+        Operator Dashboard
+      </a>
+    </li>
+
+    <!-- TECHNICIAN -->
+    <li *ngIf="role === 'Admin' || role === 'Technician'">
+      <a routerLink="/dashboard/technician" routerLinkActive="active">
+        <span class="icon">🛠️</span>
+        Technician Dashboard
+      </a>
+    </li>
+    
+    <!-- SETTINGS (ADMIN ONLY) -->
+    <li *ngIf="role === 'Admin'">
+      <a routerLink="/dashboard/settings" routerLinkActive="active">
+        <span class="icon">⚙️</span>
+        Settings
+      </a>
+    </li>
+  </ul>
+
+  <button class="logout-btn" (click)="logout()">Logout</button>
+</div>

@@ -1,0 +1,142 @@
+<div class="dashboard container-fluid">
+  <!-- PAGE HEADER -->
+
+  <div class="dashboard-header">
+    <h2 class="page-title">Admin Dashboard</h2>
+
+    <div class="filters">
+      <select class="form-select" (change)="changeFilter($event)">
+        <option value="today">Today</option>
+        <option value="yesterday">Yesterday</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="custom">Custom</option>
+      </select>
+
+      <input
+        *ngIf="currentFilter === 'custom'"
+        type="date"
+        class="form-control"
+        (change)="applyCustomDate($event)"
+      />
+    </div>
+  </div>
+
+  <!-- ANALYTICS CARDS -->
+
+  <div class="row g-4">
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card analytics-card revenue">
+        <div class="card-body">
+          <h6>Total Revenue</h6>
+          <h3>₹ {{ totalRevenue }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card analytics-card customers">
+        <div class="card-body">
+          <h6>Total Customers</h6>
+          <h3>{{ totalCustomers }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card analytics-card pending" (click)="openPendingModal()">
+        <div class="card-body">
+          <h6>Pending Payments</h6>
+          <h3>₹ {{ pendingAmount }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card analytics-card tech">
+        <div class="card-body">
+          <h6>Technicians</h6>
+          <h3>{{ technicians.length }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- RECENT JOBS TABLE -->
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5>Recent Jobs</h5>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Location</th>
+              <th>Technician</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let job of jobs.slice(0, 5)">
+              <td>{{ job.customer_name }}</td>
+              <td>{{ job.mobile }}</td>
+              <td>{{ job.location }}</td>
+              <td>{{ job.technician_name }}</td>
+
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'bg-warning': job.job_status === 'Pending',
+                    'bg-success': job.job_status === 'Completed',
+                  }"
+                >
+                  {{ job.job_status }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- CHART SECTION -->
+  <div class="row mt-4 g-4">
+    <!-- REVENUE GRAPH -->
+
+    <div class="col-lg-8">
+      <div class="card chart-card">
+        <div class="card-body">
+          <h5>Revenue by Date</h5>
+
+          <canvas
+            baseChart
+            [data]="revenueChartData"
+            [options]="chartOptions"
+            [type]="'bar'"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOB STATUS -->
+
+    <div class="col-lg-4">
+      <div class="card chart-card">
+        <div class="card-body">
+          <h5>Job Status</h5>
+
+          <canvas
+            baseChart
+            [data]="jobStatusChartData"
+            [options]="chartOptions"
+            [type]="'doughnut'"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,160 @@
+<div class="dashboard-wrapper">
+  <!-- STATS CARDS -->
+  <div class="stats-cards">
+    <div class="stat-card pending" (click)="selectedStatus = 'Pending'; filterJobs()">
+      <h3>{{ pendingCount }}</h3>
+      <p>Pending Jobs</p>
+    </div>
+
+    <div class="stat-card completed" (click)="selectedStatus = 'Completed'; filterJobs()">
+      <h3>{{ completedCount }}</h3>
+      <p>Completed Jobs</p>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+
+  <div class="filter-bar">
+    <!-- SEARCH FULL WIDTH -->
+    <input
+      class="search-box"
+      type="text"
+      placeholder="Search customer..."
+      [(ngModel)]="searchText"
+      (input)="filterJobs()"
+    />
+
+    <!-- STATUS FILTER -->
+    <select [(ngModel)]="selectedStatus" (change)="filterJobs()">
+      <option value="All">All</option>
+      <option value="Pending">Pending</option>
+      <option value="Completed">Completed</option>
+    </select>
+
+    <!-- ADMIN TECHNICIAN FILTER -->
+    <select
+      *ngIf="user?.designation === 'Admin'"
+      [(ngModel)]="selectedTechnician"
+      (change)="filterJobs()"
+    >
+      <option value="All">All Technician</option>
+
+      <option *ngFor="let t of technicians" [value]="t.id">
+        {{ t.name }}
+      </option>
+    </select>
+  </div>
+
+  <!-- JOB GRID -->
+  <div class="job-grid">
+    <div
+      class="job-card {{ job.priority }}"
+      [class.completed-job]="job.job_status === 'Completed'"
+      *ngFor="let job of filteredJobs"
+    >
+      <div class="card-body">
+        <!-- LEFT SIDE -->
+        <div class="card-left">
+          <h4 class="customer-name">
+            {{ job.customer_name }}
+          </h4>
+
+          <div class="info">👨‍🔧 {{ job.technician_name }}</div>
+
+          <div class="info">📞 {{ job.mobile }}</div>
+
+          <div class="info">📍 {{ job.location }}</div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="card-right">
+          <span class="priority-badge {{ job.priority }}">
+            {{ job.priority }}
+          </span>
+
+          <div class="action-buttons">
+            <a class="btn-icon call" href="tel:{{ job.mobile }}" title="Call Customer"> 📞 </a>
+
+            <button class="btn-icon view" (click)="viewJob(job)" title="View Job">👁</button>
+
+            <button class="btn-icon update" (click)="editJob(job)" title="Update Job">⚙</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATUS -->
+
+      <div class="status-row">
+        <span class="status-badge {{ job.job_status }}">
+          {{ job.job_status }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW MODAL -->
+
+<div class="modal-overlay" *ngIf="showViewModal" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <h3>Job Details</h3>
+
+    <p><b>Customer:</b> {{ selectedJob?.customer_name }}</p>
+    <p><b>Assigned Date:</b> {{ selectedJob?.assigned_date | date: 'shortDate' }}</p>
+    <p><b>Mobile:</b> {{ selectedJob?.mobile }}</p>
+    <p><b>Location:</b> {{ selectedJob?.location }}</p>
+    <p><b>Issue:</b> {{ selectedJob?.issue }}</p>
+    <p><b>Amount:</b> ₹ {{ selectedJob?.amount }}</p>
+    <p><b>Job Status:</b> {{ selectedJob?.job_status }}</p>
+    <p><b>Payment Status:</b> {{ selectedJob?.payment_status }}</p>
+    <p><b>Remark:</b> {{ selectedJob?.remark }}</p>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ACTION MODAL -->
+
+<div class="modal-overlay" *ngIf="showActionModal" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <h3>Update Job</h3>
+
+    <label>Job Status</label>
+
+    <select [(ngModel)]="selectedJob.job_status">
+      <option>Pending</option>
+      <option>In Progress</option>
+      <option>Completed</option>
+    </select>
+
+    <label>Payment Status</label>
+
+    <select [(ngModel)]="selectedJob.payment_status">
+      <option>Pending</option>
+      <option>Paid</option>
+    </select>
+
+    <label>Payment Method</label>
+
+    <select [(ngModel)]="selectedJob.payment_method">
+      <option>UPI</option>
+      <option>Cash</option>
+    </select>
+
+    <label>Amount</label>
+
+    <input type="number" [(ngModel)]="selectedJob.amount" />
+
+    <label>Remark</label>
+
+    <textarea [(ngModel)]="selectedJob.remark"> </textarea>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="closeModal()">Cancel</button>
+
+      <button class="btn-primary" (click)="saveUpdate()">Submit</button>
+    </div>
+  </div>
+</div>

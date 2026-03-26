@@ -1,0 +1,164 @@
+.dashboard {
+  padding: 20px;
+  min-height: 100vh;
+  background: #f4efe6;
+}
+
+/* HEADER */
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  font-family: Georgia, serif;
+  color: #5a3e2b;
+  font-weight: 700;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+/* ANALYTICS CARDS */
+
+.analytics-card {
+  border: none;
+  border-radius: 14px;
+  color: white;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.analytics-card:hover {
+  transform: translateY(-5px);
+}
+
+.analytics-card h6 {
+  font-size: 14px;
+}
+
+.analytics-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* CARD COLORS */
+
+.revenue {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.customers {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+.pending {
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+}
+
+.tech {
+  background: linear-gradient(135deg, #36d1dc, #5b86e5);
+}
+
+/* CHART CARD */
+
+.chart-card {
+  border-radius: 12px;
+  background: #fff8e7;
+  border: 1px solid #d4af37;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  height: 340px;
+}
+
+.chart-card h5 {
+  color: #5a3e2b;
+  font-weight: 600;
+}
+.chart-card canvas {
+  max-height: 250px;
+}
+
+/* TABLE */
+.table {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th {
+  background: #f8f2e5;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.badge {
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+.table-hover tbody tr {
+  transition: 0.2s;
+}
+
+.table-hover tbody tr:hover {
+  background: #f7f3ea;
+  transform: scale(1.01);
+}
+
+/* MODAL */
+
+.modal-content {
+  border-radius: 10px;
+}
+
+.pending-box {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.pending-box p {
+  margin: 3px 0;
+}
+
+/* ANIMATION */
+
+.analytics-card {
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .analytics-card h3 {
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,77 @@
+<div class="vintage-bg">
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+
+    <div class="vintage-card p-4">
+
+      <h2 class="text-center vintage-title mb-4">Login</h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+        <!-- Email or Phone -->
+        <div class="mb-3">
+          <label class="form-label vintage-label">Email or Phone</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-person"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control vintage-input"
+              formControlName="emailOrPhone"
+              placeholder="Enter email or phone">
+          </div>
+
+          <small class="text-danger"
+            *ngIf="submitted && loginForm.get('emailOrPhone')?.invalid">
+            Email or Phone is required
+          </small>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label class="form-label vintage-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-lock"></i>
+            </span>
+
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control vintage-input"
+              formControlName="password"
+              placeholder="Enter password">
+
+            <span class="input-group-text bg-light"
+                  (click)="togglePassword()"
+                  style="cursor:pointer">
+              <i class="bi"
+                 [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            </span>
+          </div>
+
+          <small class="text-danger"
+            *ngIf="submitted && loginForm.get('password')?.invalid">
+            Password is required
+          </small>
+        </div>
+
+        <!-- Button -->
+        <button type="button"
+        class="btn btn-primary w-100"
+        (click)="onLogin()">
+  Login
+</button>
+
+        <!-- Register -->
+        <div class="text-center mt-4">
+          <small>
+            Don’t have an account?
+            <a routerLink="/register" class="vintage-link">Register</a>
+          </small>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

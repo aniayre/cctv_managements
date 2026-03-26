@@ -1,0 +1,133 @@
+<div class="vintage-bg">
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="vintage-card p-4">
+      <h2 class="text-center vintage-title mb-4">Register</h2>
+
+      <form (ngSubmit)="register()" #regForm="ngForm">
+        <!-- Name -->
+        <div class="mb-3">
+          <label class="vintage-label">Name</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-person"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control vintage-input"
+              [(ngModel)]="name"
+              name="name"
+              required
+              placeholder="Enter your name"
+            />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label class="vintage-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-envelope"></i>
+            </span>
+            <input
+              type="email"
+              class="form-control vintage-input"
+              [(ngModel)]="email"
+              name="email"
+              required
+              placeholder="Enter email"
+            />
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-3">
+          <label class="vintage-label">Phone Number</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-telephone"></i>
+            </span>
+            <input
+              type="tel"
+              class="form-control vintage-input"
+              [(ngModel)]="phone"
+              name="phone"
+              required
+              placeholder="Enter phone number"
+            />
+          </div>
+        </div>
+
+        <!-- Designation Dropdown -->
+        <div class="mb-3">
+          <label class="vintage-label">Designation</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-briefcase"></i>
+            </span>
+            <select
+              class="form-select vintage-input"
+              [(ngModel)]="designation"
+              name="designation"
+              required
+            >
+              <option value="" disabled selected>Select Designation</option>
+              <option value="Admin">Admin</option>
+              <option value="Operator">Operator</option>
+              <option value="Technician">Technician</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label class="vintage-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-lock"></i>
+            </span>
+            <input
+              type="password"
+              class="form-control vintage-input"
+              [(ngModel)]="password"
+              name="password"
+              required
+              placeholder="Enter password"
+            />
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-3">
+          <label class="vintage-label">Confirm Password</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-shield-lock"></i>
+            </span>
+            <input
+              type="password"
+              class="form-control vintage-input"
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+              required
+              placeholder="Confirm password"
+            />
+          </div>
+        </div>
+
+        <!-- Register Button -->
+        <button type="submit" class="btn vintage-btn w-100 mt-3" [disabled]="!regForm.valid">
+          Register
+        </button>
+
+        <!-- Back to Login -->
+        <div class="text-center mt-3">
+          <small>
+            Already have an account?
+            <a routerLink="/" class="vintage-link">Login</a>
+          </small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<nav class="navbar">
+  <!-- LEFT: Breadcrumb / Toggle -->
+  <div class="nav-left">
+    <button class="menu-btn" (click)="toggleMenu()">☰</button>
+    <span class="breadcrumb"></span>
+  </div>
+
+  <!-- CENTER: Page Title -->
+  <div class="nav-center">
+    <h3>{{ pageTitle }}</h3>
+  </div>
+
+  <!-- RIGHT: Profile -->
+  <div class="nav-right">
+    <div class="profile" (click)="toggleProfileMenu()">
+      <div class="avatar">
+        {{ user?.name?.charAt(0) }}
+      </div>
+
+      <span class="username">{{ user?.name }}</span>
+    </div>
+
+    <!-- DROPDOWN -->
+    <div class="profile-dropdown" *ngIf="isProfileOpen">
+      <div class="profile-info">
+        <div class="avatar big">
+          {{ user?.name ? user.name.charAt(0) : 'U' }}
+        </div>
+
+        <strong>{{ user?.name }}</strong>
+        <small>{{ user?.email }}</small>
+        <small>📞 {{ user?.phone }}</small>
+
+        <div class="stars">⭐ {{ user?.stars || 0 }} </div>
+      </div>
+
+      <hr />
+
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
+</nav>

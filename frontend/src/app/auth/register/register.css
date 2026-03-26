@@ -1,0 +1,60 @@
+.vintage-bg {
+  background-color: #f4efe6;
+  min-height: 100vh;
+}
+
+.vintage-card {
+  background: #ffffff;
+  border-radius: 10px;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.vintage-title {
+  font-family: 'Georgia', serif;
+  color: #5a4634;
+  font-weight: bold;
+}
+
+.vintage-label {
+  color: #6c584c;
+  font-weight: 500;
+}
+
+.vintage-input {
+  border-radius: 0;
+  border: 1px solid #d6ccc2;
+}
+
+.vintage-input:focus {
+  border-color: #a98467;
+  box-shadow: none;
+}
+
+.vintage-btn {
+  background-color: #a98467;
+  border: none;
+  color: white;
+  font-weight: 500;
+}
+
+.vintage-btn:hover {
+  background-color: #7f5539;
+}
+
+.vintage-link {
+  color: #7f5539;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.vintage-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 576px) {
+  .vintage-card {
+    padding: 20px;
+  }
+}

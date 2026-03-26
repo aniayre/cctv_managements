@@ -1,0 +1,233 @@
+/* ===============================
+    MAIN WRAPPER
+  ================================ */
+
+.dashboard-wrapper {
+  background-color: #f4efe6;
+  min-height: 100vh;
+}
+
+.vintage-heading {
+  font-family: 'Georgia', serif;
+  color: #5a3e2b;
+  font-weight: bold;
+}
+
+/* ===============================
+    BUTTON
+  ================================ */
+
+.vintage-btn {
+  background-color: #6b4f3b;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.vintage-btn:hover {
+  background-color: #5a3e2b;
+}
+
+/* ===============================
+    DASHBOARD CARDS
+  ================================ */
+.table-heading {
+  font-weight: 600;
+  color: #444;
+}
+.dashboard-card {
+  background: #fffaf0;
+  border: 1px solid #d4c3b3;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-title {
+  font-size: 14px;
+  color: #6b4f3b;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.card-value {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.card-value.success {
+  color: #2e7d32;
+}
+.card-value.warning {
+  color: #ed6c02;
+}
+.card-value.danger {
+  color: #c62828;
+}
+.card-value.primary {
+  color: #5a3e2b;
+} 
+
+/* ===============================
+    TABLE
+  ================================ */
+th {
+  cursor: pointer;
+  user-select: none;
+}
+
+th:hover {
+  background:#ddd0bd;
+}
+.custom-table-wrapper {
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.vintage-table th {
+  background-color: #e8dccb;
+}
+
+.vintage-table {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.vintage-table td,
+.vintage-table th {
+  vertical-align: middle;
+}
+
+/* ===============================
+    ROW HIGHLIGHTS
+  ================================ */
+
+.row-completed {
+  background-color: #e6ffe6 !important;
+}
+
+.row-payment-done {
+  background-color: #e6f7ff !important;
+}
+
+/* ===============================
+    PRIORITY BADGES
+  ================================ */
+
+.priority-badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: white;
+}
+
+.priority-badge.High {
+  background: #8b0000;
+}
+.priority-badge.Medium {
+  background: #c58940;
+}
+.priority-badge.Low {
+  background: #3a5a40;
+}
+
+/* ===============================
+    MOBILE RESPONSIVE TABLE
+  ================================ */
+
+@media (max-width: 768px) {
+  .vintage-table thead {
+    display: none;
+  }
+
+  .vintage-table,
+  .vintage-table tbody,
+  .vintage-table tr,
+  .vintage-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .vintage-table tr {
+    background: #fffaf0;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .vintage-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .vintage-table td:last-child {
+    border-bottom: none;
+  }
+
+  .vintage-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    text-align: left;
+    font-weight: bold;
+    color: #6b4f3b;
+  }
+}
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  transform: translateY(-5px);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background: #fffaf0;
+  padding: 25px;
+  width: 95%;
+  max-width: 500px;
+  border-radius: 12px;
+  animation: fadeIn 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .modal-box {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

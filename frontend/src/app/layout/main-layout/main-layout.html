@@ -1,0 +1,12 @@
+<app-navbar
+  [pageTitle]="pageTitle"
+  (menuClick)="toggleSidebar()">
+</app-navbar>
+
+<app-sidebar
+  [isOpen]="isSidebarOpen">
+</app-sidebar>
+
+<div class="content">
+  <router-outlet (activate)="onActivate($event)"></router-outlet>
+</div>
