@@ -5,12 +5,15 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { verifyToken, allowRoles } = require("./middleware/authRole");
-
+app.set('trust proxy', 1);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: 'https://beige-quetzal-954424.hostingersite.com',
+  origin: [
+    'https://lightpink-heron-320777.hostingersite.com',
+    'http://localhost:4200'
+  ],
   credentials: true
 }));
 app.get("/", (req, res) => {
@@ -23,11 +26,15 @@ app.use(express.json());
    MYSQL CONNECTION
 =========================== */
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 db.connect((err) => {

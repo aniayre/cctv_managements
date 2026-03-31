@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   // 🔥 CHANGE ONLY HERE WHEN IP CHANGES
-  private BASE_URL = 'https://beige-quetzal-954424.hostingersite.com';
-
+  private BASE_URL = 'https://api-cctv-managements.onrender.com';
   constructor(private http: HttpClient) {}
 
   /* ==============================
