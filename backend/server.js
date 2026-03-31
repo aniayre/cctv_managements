@@ -37,14 +37,14 @@ const db = mysql.createPool({
   queueLimit: 0
 });
 
-db.connect((err) => {
+db.getConnection((err, connection) => {
   if (err) {
     console.log("Database connection error:", err);
-    return;
+  } else {
+    console.log("MySQL Connected");
+    connection.release();
   }
-  console.log("MySQL Connected");
 });
-
 /* ===========================
    REGISTER USER
 =========================== */
