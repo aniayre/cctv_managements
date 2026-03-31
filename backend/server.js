@@ -9,19 +9,29 @@ const { verifyToken, allowRoles } = require("./middleware/authRole");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: [
-    'https://lightpink-heron-320777.hostingersite.com',
-    'http://localhost:4200'
-  ],
-  credentials: true
-}));
+const allowedOrigins = [
+  "http://localhost:4200",
+  "https://lightpink-heron-320777.hostingersite.com",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
+    credentials: true,
+  }),
+);
+app.set("trust proxy", 1);
 app.get("/", (req, res) => {
-  
   res.send("API is running 🚀");
 });
 app.use(express.json());
-app.set('trust proxy', 1);
+
 /* ===========================
    MYSQL CONNECTION
 =========================== */
@@ -34,7 +44,6 @@ const db = mysql.createPool({
   port: process.env.DB_PORT,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
 });
 
 db.getConnection((err, connection) => {
@@ -184,9 +193,7 @@ app.get("/jobs", verifyToken, allowRoles("Admin", "Operator"), (req, res) => {
     SELECT j.*, u.name AS technician_name
     FROM jobs j
     LEFT JOIN users u ON j.technician_id = u.id
-    ORDER BY j.created_at DESC
-  `;
-
+    ORDER BY j.created_at DESC`;
   db.query(sql, (err, result) => {
     if (err) return res.status(500).send(err);
 
@@ -252,7 +259,7 @@ app.get(
   verifyToken,
   allowRoles("Technician", "Admin"),
   (req, res) => {
-    const techId = req.params.id;
+    const techId = req.user.id;
 
     if (req.user.designation === "Admin") {
       const sql = `
@@ -352,7 +359,6 @@ app.put(
   },
 );
 
-
 /* ===========================
    UPDATE JOB (Operator/Admin)
 =========================== */
@@ -362,7 +368,6 @@ app.put(
   verifyToken,
   allowRoles("Operator", "Admin"),
   (req, res) => {
-
     const jobId = req.params.id;
 
     const {
@@ -372,7 +377,7 @@ app.put(
       issue,
       technician_id,
       priority,
-      remark
+      remark,
     } = req.body;
 
     const sql = `
@@ -397,7 +402,7 @@ app.put(
         technician_id,
         priority,
         remark,
-        jobId
+        jobId,
       ],
       (err) => {
         if (err) {
@@ -406,9 +411,9 @@ app.put(
         }
 
         res.json({ message: "Job updated successfully" });
-      }
+      },
     );
-  }
+  },
 );
 
 /* ===========================
@@ -462,20 +467,25 @@ app.get("/jobs/history/:jobId", verifyToken, (req, res) => {
   });
 });
 
-app.delete("/jobs/:id", verifyToken, (req, res) => {
-  const jobId = req.params.id;
+app.delete(
+  "/jobs/:id",
+  verifyToken,
+  allowRoles("Admin", "Operator"),
+  (req, res) => {
+    const jobId = req.params.id;
 
-  const sql = "DELETE FROM jobs WHERE id = ?";
+    const sql = "DELETE FROM jobs WHERE id = ?";
 
-  db.query(sql, [jobId], (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Database error" });
-    }
+    db.query(sql, [jobId], (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Database error" });
+      }
 
-    res.json({ message: "Job deleted successfully" });
-  });
-});
+      res.json({ message: "Job deleted successfully" });
+    });
+  },
+);
 
 /* ===========================
    GET STAFF LIST (SETTINGS)
