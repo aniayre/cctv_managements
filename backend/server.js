@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { verifyToken, allowRoles } = require("./middleware/authRole");
-app.set('trust proxy', 1);
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
   res.send("API is running 🚀");
 });
 app.use(express.json());
-
+app.set('trust proxy', 1);
 /* ===========================
    MYSQL CONNECTION
 =========================== */
