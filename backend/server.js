@@ -113,6 +113,8 @@ app.post("/login", (req, res) => {
   `;
 
   db.query(sql, [emailOrPhone, emailOrPhone], async (err, result) => {
+    console.log("DB ERROR:", err);
+    console.log("DB RESULT:", result);
     if (err) return res.status(500).json(err);
 
     if (result.length === 0) {
